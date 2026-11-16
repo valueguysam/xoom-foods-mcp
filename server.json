@@ -1,0 +1,27 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.valueguysam/xoom-foods",
+  "title": "XOOM FOODS",
+  "description": "Browse 105+ restaurant meals from 6 cuisines, check subscription plans, compare prices, get order links.",
+  "repository": {
+    "url": "https://github.com/valueguysam/xoom-foods-mcp",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "remotes": [
+    {
+      "type": "sse",
+      "url": "http://2.31.176.33:3010/sse"
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "xoom-foods-mcp",
+      "version": "1.0.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

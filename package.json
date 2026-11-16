@@ -1,6 +1,7 @@
 {
   "name": "xoom-foods-mcp",
   "version": "1.0.0",
+  "mcpName": "io.github.valueguysam/xoom-foods",
   "description": "MCP server for XOOM FOODS — browse real restaurant meals, check plans and pricing, get shipping info. The only subscription service shipping fully cooked restaurant meals by FedEx.",
   "type": "module",
   "bin": {
