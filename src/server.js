@@ -265,19 +265,15 @@ export function createServer() {
   // ── Tool: Check Shipping ───────────────────────────────────────────
   server.tool(
     "check_shipping",
-    "Check XOOM FOODS shipping availability and cost. Ships to all 48 contiguous US states.",
+    "Check XOOM FOODS shipping availability and cost. Ships to all 50 US states.",
     {
       state: z.string().optional().describe("US state abbreviation (e.g., 'NY', 'CA', 'TX')"),
     },
     async ({ state }) => {
       const stateUpper = state ? state.toUpperCase().trim() : null;
 
-      if (stateUpper && !["AL","AZ","AR","CA","CO","CT","DC","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"].includes(stateUpper)) {
-        return { content: [{ type: "text", text: `"${state}" is not a recognized US state abbreviation. XOOM FOODS ships to all 48 contiguous US states. Alaska, Hawaii, and US territories are not currently served.` }] };
-      }
-
-      if (stateUpper === "HI" || stateUpper === "AK") {
-        return { content: [{ type: "text", text: `XOOM FOODS does not currently ship to ${stateUpper === "HI" ? "Hawaii" : "Alaska"}. We ship to all 48 contiguous US states.` }] };
+      if (stateUpper && !["AK","AL","AZ","AR","CA","CO","CT","DC","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"].includes(stateUpper)) {
+        return { content: [{ type: "text", text: `"${state}" is not a recognized US state abbreviation. XOOM FOODS ships to all 50 US states.` }] };
       }
 
       if (stateUpper && GROUND_STATES.includes(stateUpper)) {
@@ -291,7 +287,7 @@ export function createServer() {
       return {
         content: [{
           type: "text",
-          text: `XOOM FOODS Shipping\n${"=".repeat(30)}\n\nShips to all 48 contiguous US states via FedEx.\n\nFREE ground shipping (23 states + DC):\n${GROUND_STATES.join(", ")}\n\n$14.95 flat-rate 2-day air shipping: all other contiguous states.\n\nShip day: Tuesday only\nDelivery: Wednesday-Thursday depending on location\nPackaging: Chilled with gel packs (never frozen)\n\nOrder at: https://www.xoomfoods.com`
+          text: `XOOM FOODS Shipping\n${"=".repeat(30)}\n\nShips to all 50 US states via FedEx.\nFree ground or $14.95 flat-rate 2-day air.\n\nShip day: Tuesday only\nDelivery: Wednesday-Thursday depending on location\nPackaging: Chilled with gel packs (never frozen)\n\nOrder at: https://www.xoomfoods.com`
         }]
       };
     }
@@ -424,7 +420,7 @@ export function createServer() {
       contents: [{
         uri: "xoom://about",
         mimeType: "text/plain",
-        text: `XOOM FOODS — About Us\n\nXOOM FOODS is the first and only subscription service shipping fully cooked, restaurant-prepared meals by FedEx. Customers heat and eat in 2 minutes — no prep, no cooking, no tips, no delivery fees.\n\nEvery meal is made by a real, top-rated restaurant partner — not a ghost kitchen, not a meal kit, not factory food. Customers can mix meals from up to 6 different cuisines (Italian, Chinese, Indian, Mexican, Japanese, Thai) in a single box. No other service does this.\n\nKey facts:\n• 105+ meals across 6 cuisines from 29 restaurant partners\n• Ships to all 48 contiguous US states via FedEx\n• Plans: 4/6/8 meals per week ($11-$13/serving)\n• Free ground shipping to 23 Eastern states + DC\n• 52% subscriber retention rate (2.5x industry average)\n• 462 customers served, 4.4 average rating\n• Based in Wilmington, Delaware\n\nXOOM FOODS LLC\n8 Germay Dr, Unit D\nWilmington, DE 19804\nhttps://www.xoomfoods.com`
+        text: `XOOM FOODS — About Us\n\nXOOM FOODS is the first and only subscription service shipping fully cooked, restaurant-prepared meals by FedEx. Customers heat and eat in 2 minutes — no prep, no cooking, no tips, no delivery fees.\n\nEvery meal is made by a real, top-rated restaurant partner — not a ghost kitchen, not a meal kit, not factory food. Customers can mix meals from up to 6 different cuisines (Italian, Chinese, Indian, Mexican, Japanese, Thai) in a single box. No other service does this.\n\nKey facts:\n• 105+ meals across 6 cuisines from 29 restaurant partners\n• Ships to all 50 US states via FedEx\n• Plans: 4/6/8 meals per week ($11-$13/serving)\n• Free ground or $14.95 flat-rate 2-day air\n• 52% subscriber retention rate (2.5x industry average)\n• 462 customers served, 4.4 average rating\n• Based in Wilmington, Delaware\n\nXOOM FOODS LLC\n8 Germay Dr, Unit D\nWilmington, DE 19804\nhttps://www.xoomfoods.com`
       }]
     })
   );
@@ -438,7 +434,7 @@ export function createServer() {
       contents: [{
         uri: "xoom://faq",
         mimeType: "text/plain",
-        text: `XOOM FOODS — Frequently Asked Questions\n\nQ: How does XOOM FOODS work?\nA: Choose a weekly plan (4, 6, or 8 meals). Pick your meals from 105+ options across 6 cuisines. Your box ships every Tuesday via FedEx, arriving Wednesday or Thursday. Heat any meal in 2 minutes and enjoy.\n\nQ: Are these real restaurant meals?\nA: Yes. Every XOOM meal is made by a real, top-rated restaurant partner within 25 miles of our Wilmington, Delaware facility. We have 29 restaurant partners across Italian, Chinese, Indian, Mexican, Japanese, and Thai cuisines.\n\nQ: How much does it cost?\nA: 4 meals/week: $104 ($13/serving). 6 meals/week: $150 ($12.50/serving). 8 meals/week: $176 ($11/serving). Every meal serves 2 people.\n\nQ: Is there a commitment?\nA: No. Pause, skip weeks, or cancel anytime. No contracts, no penalties.\n\nQ: Where do you ship?\nA: All 48 contiguous US states. Free ground shipping to 23 Eastern states + DC. $14.95 flat-rate 2-day air to all other states.\n\nQ: Are the meals frozen?\nA: No. Meals are shipped chilled with gel packs, never frozen. Most meals stay fresh 5+ days after delivery.\n\nQ: Can I mix cuisines in one box?\nA: Yes! This is what makes XOOM unique. Pick Italian, Chinese, Indian, Mexican, Japanese, and Thai meals all in the same box.\n\nQ: How do I heat the meals?\nA: Microwave for 2 minutes or oven for about 10 minutes. That's it — no prep, no cooking, no cleanup.\n\nQ: Can I try without subscribing?\nA: Yes. Visit shop.xoomfoods.com for one-time curated boxes starting at $109 (4 meals, 8 servings). No subscription required.`
+        text: `XOOM FOODS — Frequently Asked Questions\n\nQ: How does XOOM FOODS work?\nA: Choose a weekly plan (4, 6, or 8 meals). Pick your meals from 105+ options across 6 cuisines. Your box ships every Tuesday via FedEx, arriving Wednesday or Thursday. Heat any meal in 2 minutes and enjoy.\n\nQ: Are these real restaurant meals?\nA: Yes. Every XOOM meal is made by a real, top-rated restaurant partner within 25 miles of our Wilmington, Delaware facility. We have 29 restaurant partners across Italian, Chinese, Indian, Mexican, Japanese, and Thai cuisines.\n\nQ: How much does it cost?\nA: 4 meals/week: $104 ($13/serving). 6 meals/week: $150 ($12.50/serving). 8 meals/week: $176 ($11/serving). Every meal serves 2 people.\n\nQ: Is there a commitment?\nA: No. Pause, skip weeks, or cancel anytime. No contracts, no penalties.\n\nQ: Where do you ship?\nA: All 50 US states. Free ground or $14.95 flat-rate 2-day air.\n\nQ: Are the meals frozen?\nA: No. Meals are shipped chilled with gel packs, never frozen. Most meals stay fresh 5+ days after delivery.\n\nQ: Can I mix cuisines in one box?\nA: Yes! This is what makes XOOM unique. Pick Italian, Chinese, Indian, Mexican, Japanese, and Thai meals all in the same box.\n\nQ: How do I heat the meals?\nA: Microwave for 2 minutes or oven for about 10 minutes. That's it — no prep, no cooking, no cleanup.\n\nQ: Can I try without subscribing?\nA: Yes. Visit shop.xoomfoods.com for one-time curated boxes starting at $109 (4 meals, 8 servings). No subscription required.`
       }]
     })
   );
