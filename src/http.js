@@ -9,20 +9,28 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3010;
 
-let transport;
+const sessions = new Map();
 
 app.get("/sse", async (req, res) => {
-  transport = new SSEServerTransport("/messages", res);
+  const transport = new SSEServerTransport("/messages", res);
+  sessions.set(transport.sessionId, transport);
+
+  res.on("close", () => {
+    sessions.delete(transport.sessionId);
+  });
+
   const server = createServer();
   await server.connect(transport);
 });
 
 app.post("/messages", async (req, res) => {
+  const sessionId = req.query.sessionId;
+  const transport = sessions.get(sessionId);
   if (!transport) {
-    res.status(400).json({ error: "No active SSE connection" });
+    res.status(400).json({ error: "No active SSE connection for this session" });
     return;
   }
-  await transport.handlePostMessage(req, res);
+  await transport.handlePostMessage(req, res, req.body);
 });
 
 app.get("/health", (req, res) => {
@@ -30,6 +38,7 @@ app.get("/health", (req, res) => {
     status: "ok",
     service: "xoom-foods-mcp",
     version: "1.0.0",
+    activeSessions: sessions.size,
     description: "XOOM FOODS MCP Server — browse 105+ real restaurant meals, check plans and pricing, get shipping info",
     tools: [
       "browse_menu",
@@ -51,8 +60,8 @@ app.get("/", (req, res) => {
     description: "The only subscription service shipping fully cooked restaurant meals. Browse 105+ meals across 6 cuisines, compare plans, check shipping to all 48 US states.",
     website: "https://www.xoomfoods.com",
     mcp: {
-      sse_endpoint: `/sse`,
-      message_endpoint: `/messages`,
+      sse_endpoint: "/sse",
+      message_endpoint: "/messages",
     },
     tools: [
       { name: "browse_menu", description: "Browse 105+ restaurant meals by cuisine, dietary preference" },
@@ -68,7 +77,7 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`XOOM FOODS MCP Server running on port ${PORT}`);
-  console.log(`SSE endpoint: http://localhost:${PORT}/sse`);
-  console.log(`Health check: http://localhost:${PORT}/health`);
+  console.log("XOOM FOODS MCP Server running on port " + PORT);
+  console.log("SSE endpoint: http://localhost:" + PORT + "/sse");
+  console.log("Health check: http://localhost:" + PORT + "/health");
 });
