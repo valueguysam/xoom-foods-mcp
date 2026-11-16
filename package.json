@@ -1,0 +1,40 @@
+{
+  "name": "xoom-foods-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for XOOM FOODS — browse real restaurant meals, check plans and pricing, get shipping info. The only subscription service shipping fully cooked restaurant meals by FedEx.",
+  "type": "module",
+  "bin": {
+    "xoom-foods-mcp": "./src/index.js"
+  },
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "start:http": "node src/http.js"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "meal-delivery",
+    "food",
+    "restaurant",
+    "subscription",
+    "xoom-foods",
+    "heat-and-eat",
+    "meal-subscription"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.24.0",
+    "express": "^4.21.0",
+    "cors": "^2.8.5"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xoomfoods/xoom-foods-mcp"
+  },
+  "homepage": "https://www.xoomfoods.com"
+}
