@@ -11,7 +11,7 @@
   "remotes": [
     {
       "type": "sse",
-      "url": "http://2.31.176.33:3010/sse"
+      "url": "https://mcp.xoomfoods.com/sse"
     }
   ],
   "packages": [

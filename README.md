@@ -52,14 +52,22 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
 npx xoom-foods-mcp
 ```
 
-### Run the HTTP server
+### Remote MCP Server
+
+Connect to the hosted XOOM FOODS MCP server over HTTPS:
+
+```
+SSE Endpoint: https://mcp.xoomfoods.com/sse
+Messages:     https://mcp.xoomfoods.com/messages
+Health:       https://mcp.xoomfoods.com/health
+```
+
+### Run your own HTTP server
 
 ```bash
 npm install
 npm run start:http
 ```
-
-The HTTP server exposes an SSE endpoint at `/sse` for remote MCP connections.
 
 ## Why XOOM FOODS?
 
